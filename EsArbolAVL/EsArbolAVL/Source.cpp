@@ -5,11 +5,11 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-#include <vector>
+
 #include "bintree_eda.h"
 
 // función que resuelve el problema
-int resolver(bintree<int> const& t,bool & isAVL) {
+int resolver(bintree<int> const& t,bool & isAVL,const int root) {
 
 	if (t.left().empty() && t.right().empty())
 		return 1;
@@ -20,16 +20,23 @@ int resolver(bintree<int> const& t,bool & isAVL) {
 
 		if (!t.left().empty()) {
 			if (t.left().root() < t.root()) {
-				left += resolver(t.left(), isAVL);
+				if (t.root() > root) {
+					isAVL = t.left().root() < root;
+				}
+				if(isAVL)
+					left += resolver(t.left(), isAVL,root);
 			}
-			else
+			else 
 				isAVL = false;
 		}
 		
 
 		if (!t.right().empty()) {
 			if (t.right().root() > t.root()) {
-				right += resolver(t.right(), isAVL);
+				if (t.root() < root)
+					isAVL = t.right().root() < root;
+				if(isAVL)
+					right += resolver(t.right(), isAVL,root);
 			}
 			else
 				isAVL = false;
@@ -50,8 +57,10 @@ void resuelveCaso() {
 	tree = leerArbol(-1);
 
 	if (!tree.empty()) {
+		int maxLeft = 0;
+		int minRight = 2147483647;
 		bool isAVL = true;
-		resolver(tree, isAVL);
+		resolver(tree, isAVL,tree.root());
 
 		if (isAVL)
 			std::cout << "SI\n";
