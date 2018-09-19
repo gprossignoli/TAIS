@@ -8,46 +8,73 @@
 
 #include "bintree_eda.h"
 
+using tINodeInfo = struct 
+{
+	int minR;
+	int maxL;
+	int height;
+	bool isAVL;
+};
+
 // función que resuelve el problema
-int resolver(bintree<int> const& t,bool & isAVL,const int root) {
+tINodeInfo resolver(bintree<int> const& t) {
+	tINodeInfo info;
 
-	if (t.left().empty() && t.right().empty())
-		return 1;
-
-	else if(isAVL) {
-		int left = 0;
-		int right = 0;
-
-		if (!t.left().empty()) {
-			if (t.left().root() < t.root()) {
-				if (t.root() > root) {
-					isAVL = t.left().root() < root;
-				}
-				if(isAVL)
-					left += resolver(t.left(), isAVL,root);
-			}
-			else 
-				isAVL = false;
-		}
-		
-
-		if (!t.right().empty()) {
-			if (t.right().root() > t.root()) {
-				if (t.root() < root)
-					isAVL = t.right().root() < root;
-				if(isAVL)
-					right += resolver(t.right(), isAVL,root);
-			}
-			else
-				isAVL = false;
-		}
-
-		if (isAVL)
-			isAVL = std::abs(left - right) <= 1;
-
-		return std::max(left, right) + 1;
+	if (t.left().empty() && t.right().empty()) {
+		info.isAVL = true;
+		info.height = 1;
+		info.maxL = t.root();
+		info.minR = t.root();
+		return info;
 	}
 
+	else {
+		tINodeInfo left, right;
+		if (!t.left().empty()) {
+			if (t.left().root() < t.root()) {
+				left = resolver(t.left());
+				info.isAVL = left.isAVL && left.minR < t.root() && left.maxL < t.root();
+
+				if (left.maxL < t.root())
+					info.maxL = t.root();
+				else
+					info.maxL = left.maxL;
+			}
+			else
+				info.isAVL = false;
+		}
+		else {
+			info.maxL = t.root();
+			left.height = 0;
+			info.isAVL = true;
+		}
+
+		if (info.isAVL) {
+			if (!t.right().empty()) {
+				if (t.right().root() > t.root()) {
+					right = resolver(t.right());
+					info.isAVL = right.isAVL && right.minR > t.root() && right.maxL > t.root();
+
+					if (right.minR > t.root())
+						info.minR = t.root();
+					else
+						info.minR = right.minR;
+				}
+				else
+					info.isAVL = false;
+			}
+			else {
+				info.minR = t.root();
+				right.height = 0;
+			}
+		}
+		
+		if (info.isAVL)
+			info.isAVL = !(std::abs(left.height - right.height) > 1);
+		info.height = std::max(left.height, right.height) + 1;
+
+		return info;
+	}
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
@@ -57,12 +84,10 @@ void resuelveCaso() {
 	tree = leerArbol(-1);
 
 	if (!tree.empty()) {
-		int maxLeft = 0;
-		int minRight = 2147483647;
-		bool isAVL = true;
-		resolver(tree, isAVL,tree.root());
 
-		if (isAVL)
+		tINodeInfo sol = resolver(tree);
+
+		if (sol.isAVL)
 			std::cout << "SI\n";
 		else
 			std::cout << "NO\n";

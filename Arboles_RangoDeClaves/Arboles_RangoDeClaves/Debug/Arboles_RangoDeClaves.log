@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\users\gpros.laptop-6hnffit3\documents\github\tais\arboles_rangodeclaves\arboles_rangodeclaves\avltree_ext.h(12): error C2061: error de sintaxis: identificador 'raiz'
+  c:\users\gpros.laptop-6hnffit3\documents\github\tais\arboles_rangodeclaves\arboles_rangodeclaves\avltree_ext.h(49): note: vea la referencia a la creación de instancias de plantilla clase de 'map_ext<Clave,Valor,Comparador>' que se está compilando
+c:\users\gpros.laptop-6hnffit3\documents\github\tais\arboles_rangodeclaves\arboles_rangodeclaves\avltree_ext.h(12): error C2238: símbolos (token) inesperados delante de ';'
