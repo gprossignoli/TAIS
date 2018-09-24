@@ -5,7 +5,7 @@
 #include "TreeMap_AVL.h"
 
 template <class Clave,class Valor,class Comparador = std::less<Clave>>
-class AVLtree_ext : map<Clave, Valor, Comparador> {
+class AVLtree_ext : public map<Clave, Valor, Comparador> {
 	using clave_valor = typename map<map_t>::clave_valor;
 	using map_t = typename map<Clave, Valor, Comparador>::map_t;
 	using Link = typename map<map_t>::Link;
