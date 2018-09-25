@@ -10,26 +10,17 @@
 
 // función que resuelve el problema
 int resolver(PriorityQueue<int, std::less<int>> q) {
-	int i = 2; int sol = 0; 
-	std::vector<int> efforts; //contains the effort of each node
-	std::vector<int> elems; //elements order by heapsort
-	elems.push_back(0);
-	elems.push_back(q.top());
+	int suma = q.top();
 	q.pop();
-	efforts.push_back(0);
-	efforts.push_back(0);
-	while (q.size() != 1) {
-		elems.push_back(q.top());
-		efforts.push_back(elems[i / 2] + q.top() + efforts[i / 2]);
+	int i = 0;
+	const int j = q.size() + 1;
+	while (i < j) {
+		suma += q.top();
 		q.pop();
-		sol += efforts[i];
+		q.push(suma);
 		++i;
 	}
-	elems.push_back(q.top());
-	efforts.push_back(elems[i / 2] + q.top() + efforts[i / 2]);
-	q.pop();
-	sol += efforts[i];
-	return sol;
+	return suma;
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
