@@ -12,22 +12,31 @@
 using tPatientInfo = struct {
 	std::string name;
 	int triage;
+	int timeOfArrival;
 };
 
 
 bool operator<(tPatientInfo const& a, tPatientInfo const& b) {
-	return a.triage < b.triage;
+	if (a.triage < b.triage)
+		return true;
+
+	if (a.triage == b.triage) {
+		if (a.timeOfArrival > b.timeOfArrival)
+			return true;
+	}
+
+	return false;
 }
 
 
 
 
 
-void newPatient(std::priority_queue<tPatientInfo> & p) {
+void newPatient(std::priority_queue<tPatientInfo> & p,const int time) {
 	std::string name;
 	int triage;
 	std::cin >> name >> triage;
-	p.push({ name,triage });
+	p.push({ name,triage,time });
 }
 
 std::string treatPatient(std::priority_queue<tPatientInfo> & p) {
@@ -36,9 +45,10 @@ std::string treatPatient(std::priority_queue<tPatientInfo> & p) {
 		p.pop();
 	return out;
 }
+
 bool resuelveCaso() {
 	int nEvents;
-	
+	int time = 1;
 	std::cin >> nEvents;
 	if (nEvents == 0)
 		return false;
@@ -49,7 +59,8 @@ bool resuelveCaso() {
 		char event;
 		std::cin >> event;
 		if (event == 'I') {
-			newPatient(patientList);
+			newPatient(patientList,time);
+			++time;
 		}
 		else if (event == 'A') {
 			std::cout << treatPatient(patientList) << '\n';
