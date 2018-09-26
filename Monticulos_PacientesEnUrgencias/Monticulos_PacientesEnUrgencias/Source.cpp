@@ -41,8 +41,7 @@ void newPatient(std::priority_queue<tPatientInfo> & p,const int time) {
 
 std::string treatPatient(std::priority_queue<tPatientInfo> & p) {
 	std::string out = p.top().name;
-	if(p.size() > 1)
-		p.pop();
+	p.pop();
 	return out;
 }
 
