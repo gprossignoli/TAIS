@@ -43,6 +43,7 @@ bool resuelveCaso() {
 			tasks.push({ ini,end,period,false });
 		}
 
+
 		int t = tasks.top().ini;
 		bool conflict = false;
 
