@@ -30,7 +30,6 @@ bool resuelveCaso() {
 	if (!std::cin)
 		return false;
 
-	if (time > 0) {
 
 		for (int i = 0; i < nSimpleTasks; ++i) {
 			int ini, end;
@@ -43,6 +42,7 @@ bool resuelveCaso() {
 			tasks.push({ ini,end,period,false });
 		}
 
+		if (time > 0) {
 
 		int t = tasks.top().ini;
 		bool conflict = false;
