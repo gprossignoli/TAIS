@@ -9,16 +9,19 @@
 #include "PriorityQueue.h"
 
 // función que resuelve el problema
-int resolver(PriorityQueue<int, std::less<int>> q) {
-	int suma = q.top();
-	q.pop();
-	int i = 0;
-	const int j = q.size() + 1;
-	while (i < j) {
-		suma += q.top();
+int resolver(PriorityQueue<int> q) {
+	int suma = 0;
+	const int s = q.size();
+	if (q.size() > 1) {
+		suma = q.top();
 		q.pop();
-		q.push(suma);
-		++i;
+		int i = 0;
+		while (q.size() > 1 && i < s) {
+			suma += q.top();
+			q.pop();
+			q.push(suma);
+			++i;
+		}
 	}
 	return suma;
 }
@@ -31,7 +34,7 @@ bool resuelveCaso() {
 	if (N == 0)
 		return false;
 
-	PriorityQueue<int, std::less<int>> queue;
+	PriorityQueue<int> queue;
 	for (int i = 0; i < N; i++) {
 		int elem;
 		std::cin >> elem;

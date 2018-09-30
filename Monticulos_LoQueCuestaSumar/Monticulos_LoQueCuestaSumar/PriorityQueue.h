@@ -74,7 +74,7 @@ public:
       else {
          array[1] = std::move(array.back());
          array.pop_back();
-         hundir(1);
+         if (!empty()) hundir(1);
       }
    }
    
@@ -86,7 +86,7 @@ public:
          prim = std::move(array[1]);
          array[1] = std::move(array.back());
          array.pop_back();
-         hundir(1);
+         if (!empty()) hundir(1);
       }
    }
    
