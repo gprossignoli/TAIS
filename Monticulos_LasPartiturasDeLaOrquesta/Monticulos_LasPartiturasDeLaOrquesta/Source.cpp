@@ -9,7 +9,7 @@
 #include <queue>
 
 using tGroup = struct {
-	int musicians;
+	int musicians; //musicians per music score
 	int musicScores;
 };
 
