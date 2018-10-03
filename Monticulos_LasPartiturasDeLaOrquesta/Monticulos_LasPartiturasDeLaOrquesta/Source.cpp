@@ -9,12 +9,13 @@
 #include <queue>
 
 using tGroup = struct {
-	int musicians; //musicians per music score
+	int initMusicians; 
+	int currentMusicians; //musicians per music score
 	int musicScores;
 };
 
 bool operator<(tGroup const& a, tGroup const& b) {
-	return a.musicians < b.musicians;
+	return a.currentMusicians < b.currentMusicians;
 }
 
 
@@ -25,13 +26,12 @@ int resolver(std::priority_queue<tGroup> & o,const int musicScores) {
 		++tmp.musicScores;
 		o.pop();
 		if (tmp.musicScores > 1) {
-			int aux = tmp.musicians / 2;
-			tmp.musicians -= aux;
+			tmp.currentMusicians = (tmp.initMusicians / tmp.musicScores) + (tmp.initMusicians % tmp.musicScores );
 		}
 		o.push(tmp);
 		--i;
 	}
-	return o.top().musicians;
+	return o.top().currentMusicians;
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
@@ -46,10 +46,10 @@ bool resuelveCaso() {
 	for (int i = 0; i < groups; ++i) {
 		int aux;
 		std::cin >> aux;
-		orchestra.push({ aux,1 });
+		orchestra.push({ aux,aux,1 });
 	}
 
-	int sol = orchestra.top().musicians;
+	int sol = orchestra.top().currentMusicians;
 	if(musicScores > groups)
 		sol = resolver(orchestra,(musicScores - groups));
 	std::cout << sol << '\n';
