@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Grafos_LosAmigosDeMisAmigos", "Grafos_LosAmigosDeMisAmigos\Grafos_LosAmigosDeMisAmigos.vcxproj", "{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}.Debug|x64.ActiveCfg = Debug|x64
+		{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}.Debug|x64.Build.0 = Debug|x64
+		{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}.Debug|x86.ActiveCfg = Debug|Win32
+		{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}.Debug|x86.Build.0 = Debug|Win32
+		{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}.Release|x64.ActiveCfg = Release|x64
+		{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}.Release|x64.Build.0 = Release|x64
+		{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}.Release|x86.ActiveCfg = Release|Win32
+		{22348B7A-CB93-452A-B4C6-DEA9C8B90DD5}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {895A8EFD-A3A9-4ACE-BAEE-34CBB764E53C}
+	EndGlobalSection
+EndGlobal
