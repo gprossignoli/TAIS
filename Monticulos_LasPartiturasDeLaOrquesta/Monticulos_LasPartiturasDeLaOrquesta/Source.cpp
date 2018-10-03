@@ -26,7 +26,7 @@ int resolver(std::priority_queue<tGroup> & o,const int musicScores) {
 		++tmp.musicScores;
 		o.pop();
 		if (tmp.musicScores > 1) {
-			tmp.currentMusicians = (tmp.initMusicians / tmp.musicScores) + (tmp.initMusicians % tmp.musicScores );
+			tmp.currentMusicians = (tmp.initMusicians / tmp.musicScores) + (tmp.initMusicians % tmp.musicScores > 0);
 		}
 		o.push(tmp);
 		--i;
