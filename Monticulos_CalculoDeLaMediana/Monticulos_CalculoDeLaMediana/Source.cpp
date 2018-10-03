@@ -9,42 +9,28 @@
 #include <queue> 
 #include "PriorityQueue.h"
 
-int resolver(PriorityQueue<int> q) {
+int resolver(PriorityQueue<int> & q, std::priority_queue<int> & left,const int realSize) {
 	
-	if (q.size() == 1) {
+	if (realSize == 1) {
 		return 2 * q.top();
 	}
 
-	if (q.size() == 2) {
+	if (realSize == 2) {
 		int sol = q.top();
+		left.push(q.top());
 		q.pop();
 		return sol + q.top();
 	}
 	else {
-		const int size = q.size();
-		std::priority_queue<int> left;
-		PriorityQueue<int> right;
-		//divide the tail where the left is a maximum tail and the right is a minimum tail, so the looked values are left.top() and right.top()
-		int mid = (q.size() / 2);
-		int i = 0;
-		while (i < mid) {
+		if (realSize % 2 == 0) {
 			left.push(q.top());
 			q.pop();
-			++i;
-		}
-		/*while (!q.empty()) {
-			right.push(q.top());
-			q.pop();
-		}*/
-
-		if (size % 2 == 0) {
 			return left.top() + q.top();
 		}
-
-		else
+		else {
 			return 2 * q.top();
+		}
 	}
-
 }
 
 bool resuelveCaso() {
@@ -54,12 +40,13 @@ bool resuelveCaso() {
 		return false;
 
 	PriorityQueue<int> queue;
+	std::priority_queue<int> left;
 
 	for (int i = 0; i < nElems; ++i) {
 		int elem;
 		std::cin >> elem;
 		queue.push(elem);
-		int sol = resolver(queue);
+		int sol = resolver(queue,left,queue.size()+left.size());
 		std::cout << sol;
 		if (i < nElems - 1)
 			std::cout << ' ';
