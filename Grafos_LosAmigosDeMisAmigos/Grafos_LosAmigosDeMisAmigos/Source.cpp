@@ -7,12 +7,9 @@
 #include <fstream>
 #include <vector>
 #include "Grafo.h"
-
-// función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
+#include "maxConnectedComponent.h"
 
 
-}
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
@@ -21,15 +18,20 @@ void resuelveCaso() {
 
 	std::cin >> persons >> friendPairs;
 
-	Grafo city = Grafo(persons);
+	Grafo city(persons);
 	for (int i = 0; i < friendPairs; ++i) {
 		int a, b;
 		std::cin >> a >> b;
-		city.
+		city.ponArista(a - 1, b - 1);
 	}
-	if(friendPairs > 0)
-	TipoSolucion sol = resolver(datos);
-	// escribir sol
+	if (friendPairs > 0) {
+		mcc m(city);
+		std::cout << m.getMCC() << '\n';
+	}
+	else
+		std::cout << 1 << '\n';
+	
+	
 
 
 }

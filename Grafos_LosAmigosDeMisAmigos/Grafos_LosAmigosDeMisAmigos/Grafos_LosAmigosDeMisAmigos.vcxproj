@@ -116,9 +116,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Grafo.h" />
+    <ClInclude Include="maxConnectedComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="datos.txt" />
+    <Text Include="output.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
