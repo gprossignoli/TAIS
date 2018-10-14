@@ -35,7 +35,7 @@ private:
 public:
 	grafoBipartito(Grafo const& g, bool & bipartiteGraph) : marked(g.V(),{ false,' '}) {
 		for (int v = 0; v < g.V(); ++v) {
-			if (!marked[v].first) {
+			if (!marked[v].first && bipartiteGraph) {
 				color c = 'b';
 				bipartiteGraph = dfs(g, v, c);
 			}
