@@ -9,24 +9,26 @@ class grafoBipartito {
 private:
 	std::vector<std::pair<bool, char>> marked;
 	
-	bool dfs(Grafo const& g,int v, const color c, bool bipartite) {
+	bool dfs(Grafo const& g,int v, const color c) {
 		marked[v] = { true,c };
 		int w;
+		bool bipartite = true;
 		for (int w : g.ady(v)) {
 			if (bipartite) {
 				if (!marked[w].first) {
 					if (c == 'b')
-						bipartite = dfs(g, w, 'r',bipartite);
+						bipartite = dfs(g, w, 'r');
 					else
-						bipartite = dfs(g, w, 'b',bipartite);
+						bipartite = dfs(g, w, 'b');
 				}
 				else if (marked[w].second == c) {
-					bipartite = false;
+					return false;
 				}
 			}
 			else
 				return false;
 		}
+
 		return bipartite;
 	}
 
@@ -35,7 +37,7 @@ public:
 		for (int v = 0; v < g.V(); ++v) {
 			if (!marked[v].first) {
 				color c = 'b';
-				bipartiteGraph = dfs(g, v, c,true);
+				bipartiteGraph = dfs(g, v, c);
 			}
 		}
 	}
