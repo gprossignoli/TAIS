@@ -118,10 +118,6 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GrafoDirigido.h" />
-    <ClInclude Include="shortestPath.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="datos.txt" />
     <Text Include="output.txt" />
   </ItemGroup>

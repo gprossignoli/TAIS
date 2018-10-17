@@ -6,10 +6,28 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
-#include "shortestPath.h"
+#include <queue>
 
-// Resuelve un caso de prueba, leyendo de la entrada la
-// configuración, y escribiendo la respuesta
+void bfs(std::vector<std::vector<int>> const& g, int s,std::vector<bool> & marked,std::vector<int> & distTo) {
+	std::queue<int> q;
+	distTo[s] = 0;
+	marked[s] = true;
+	q.push(s);
+
+	while (!q.empty()) {
+		int v = q.front();
+		q.pop();
+
+		for (int w : g[v]) {
+			if (!marked[w]) {
+				distTo[w] = distTo[v] + 1;
+				marked[w] = true;
+				q.push(w);
+			}
+		}
+	}
+}
+
 bool resuelveCaso() {
 	int N, nDice, snakes, stairs; // nDice <= N
 
@@ -18,36 +36,34 @@ bool resuelveCaso() {
 		return false;
 
 	const int boardSize = N * N;
-	GrafoDirigido implicitGraph(boardSize);
+	
+	std::vector<std::vector<int>> implicitGraph(boardSize);
 
-	/*	coste total de la formacion de grafo = O(N) sobre el tamaño del tablero, el pimer bucle seria 10N, 
-	*	el segundo sera despreciable respecto de 10N con coste N - 10, 
-	*	y el tercero es despreciable pues (snakes + stairs) sera como mucho N. 
-	*/
-
-	int i = 0;
-	for (; i < (implicitGraph.V() - nDice); ++i) {
-		int tmp = i + 1;
-		for (int j = 0; j < nDice; ++j) {		
-			implicitGraph.ponArista(i, tmp);
-			++tmp;
+	for (int i = 0; i < (snakes + stairs); ++i) {
+		int s, d;
+		std::cin >> s >> d;
+		implicitGraph[s-1].push_back(d-1);
+	}
+	
+	for (int i = 0; i < boardSize; ++i) {
+		if (implicitGraph[i].empty()) {
+			for (int j = i+1; j < implicitGraph.size() && j <= (nDice + i); ++j) {
+				if (implicitGraph[j].empty()) {
+					implicitGraph[i].push_back(j);
+				}
+				else
+					implicitGraph[i].push_back(implicitGraph[j][0]);
+			}
 		}
 	}
 
-	for (; i < implicitGraph.V() - 1; ++i) {
-		implicitGraph.ponArista(i, i + 1);
-	}
+	std::vector<bool> marked(boardSize, false);
 
-	for (int i = 0; i < snakes + stairs; ++i) {
-		int s, d;
-		std::cin >> s >> d;
-		implicitGraph.ponArista(s, d);
-	}
+	std::vector<int> distTo(implicitGraph.size());
 
-	int sol = 0;
-	shortestPath(implicitGraph, sol);
+	bfs(implicitGraph, 0, marked, distTo);
 
-	std::cout << sol << '\n';
+	std::cout << distTo[implicitGraph.size()-1] << '\n';
 
 	return true;
 
