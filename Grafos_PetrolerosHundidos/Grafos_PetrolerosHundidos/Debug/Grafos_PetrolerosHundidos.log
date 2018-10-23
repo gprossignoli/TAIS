@@ -1,0 +1,6 @@
+﻿  Source.cpp
+c:\users\gpros.laptop-6hnffit3\documents\github\tais\grafos_petroleroshundidos\grafos_petroleroshundidos\seamap.h(32): error C2109: el subíndice requiere una matriz o tipo de puntero
+c:\users\gpros.laptop-6hnffit3\documents\github\tais\grafos_petroleroshundidos\grafos_petroleroshundidos\seamap.h(39): error C2228: el operando izquierdo de '.size' debe tener class/struct/union
+  c:\users\gpros.laptop-6hnffit3\documents\github\tais\grafos_petroleroshundidos\grafos_petroleroshundidos\seamap.h(39): note: el tipo es 'const char'
+c:\users\gpros.laptop-6hnffit3\documents\github\tais\grafos_petroleroshundidos\grafos_petroleroshundidos\seamap.h(44): error C2109: el subíndice requiere una matriz o tipo de puntero
+c:\users\gpros.laptop-6hnffit3\documents\github\tais\grafos_petroleroshundidos\grafos_petroleroshundidos\source.cpp(34): error C2109: el subíndice requiere una matriz o tipo de puntero
