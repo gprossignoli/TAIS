@@ -37,8 +37,21 @@ bool resuelveCaso() {
 	
 	sunkOilTanker seaMap(map);
 	
-	std::cout << seaMap.getBiggerSlick();
+	std::cout << seaMap.getBiggerSlick() << ' ';
 
+	int newSlicks;
+	std::cin >> newSlicks;
+	for (int i = 0; i < newSlicks; ++i) {
+		int r, c;
+		std::cin >> r >> c;
+		map[r-1].push_back('#');
+		seaMap.addSlick(map, r-1, c-1);
+		std::cout << seaMap.getBiggerSlick();
+		if (i < newSlicks - 1)
+			std::cout << ' ';
+		else
+			std::cout << '\n';
+	}
 	return true;
 
 
