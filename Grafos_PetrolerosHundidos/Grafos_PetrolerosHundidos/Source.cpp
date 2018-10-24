@@ -6,38 +6,39 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
-#include "SeaMap.h"
+#include <string>
+#include "sunkOilTanker.h"
 
 
 bool resuelveCaso() {
+	
 	int Rows, Columns;
 	std::cin >> Rows >> Columns;
 
 	if (!std::cin)
 		return false;
+	
+	std::cin.ignore(1);
+	Map map(Rows);
 
-	map sea(Rows + Columns);
-
-	for (char & sector : sea) {
-		std::cin >> sector;
+	for (int r = 0; r < Rows; ++r) {
+		std::string line;
+		std::getline(std::cin, line);
+		if (line.length() < 8) {
+			int l = 8 - line.length();
+			std::string tmp(l, ' ');
+			line += tmp;
+		}
+			
+		for (int c = 0; c < Columns; ++c) {
+			map[r].push_back(line[c]);
+		}
 	}
+	
+	sunkOilTanker seaMap(map);
+	
+	std::cout << seaMap.getBiggerSlick();
 
-	seaMap map(sea);
-
-	std::cout << map.getBiggerSlickSize() << " ";
-
-	int newSlicks;
-	std::cin >> newSlicks;
-	for (int i = 0; i < newSlicks; ++i) {
-		int r,c;
-		std::cin >> r >> c;
-		sea[r][c] = '#';
-		std::cout << map.addSlick(sea, r, c);
-		if (i < newSlicks - 1)
-			std::cout << ' ';
-	}
-
-	std::cout << '\n';
 	return true;
 
 

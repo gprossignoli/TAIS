@@ -118,11 +118,12 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SeaMap.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="datos.txt" />
     <Text Include="output.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConjuntosDisjuntos.h" />
+    <ClInclude Include="sunkOilTanker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
