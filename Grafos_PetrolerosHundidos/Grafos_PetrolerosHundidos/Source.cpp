@@ -24,7 +24,7 @@ bool resuelveCaso() {
 	for (int r = 0; r < Rows; ++r) {
 		std::string line;
 		std::getline(std::cin, line);
-		if (line.length() < 8) {
+		if (line.length() < Columns) {
 			int l = 8 - line.length();
 			std::string tmp(l, ' ');
 			line += tmp;

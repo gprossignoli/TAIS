@@ -21,21 +21,16 @@ private:
 
 	int checkPos(Map const& M,int r, int c,ConjuntosDisjuntos & map) {
 		const int src = r * R + c;
-		int idSrc;
 
 		for (auto d : dirs) {	
 			const int nr = r + d.first;
 			const int nc = c + d.second;
-			const int dst = nr * R + nc;
 			if (validPos(nr, nc) && M[nr][nc] == '#') {
-				const int idDst = map.buscar(dst);
-				idSrc = map.buscar(src);
-				map.unir(idSrc, idDst);
+				const int dst = nr * R + nc;
+				map.unir(src, dst);
 			}
 		}
-
-		idSrc = map.buscar(src);
-		return map.tam(idSrc);
+		return map.tam(src);
 	}
 
 public:
