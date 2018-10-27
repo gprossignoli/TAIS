@@ -24,12 +24,6 @@ bool resuelveCaso() {
 	for (int r = 0; r < Rows; ++r) {
 		std::string line;
 		std::getline(std::cin, line);
-		if (line.length() < Columns) {
-			int l = 8 - line.length();
-			std::string tmp(l, ' ');
-			line += tmp;
-		}
-			
 		for (int c = 0; c < Columns; ++c) {
 			map[r].push_back(line[c]);
 		}
