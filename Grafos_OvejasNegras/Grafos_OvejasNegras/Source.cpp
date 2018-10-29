@@ -8,22 +8,17 @@
 #include <vector>
 #include "sheepFinder.h"
 
-// función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
-
-
-}
-
-
 bool resuelveCaso() {
 	int R, C;
-	std::cin >> R >> C;
+	std::cin >> C >> R;
 	if (!std::cin)
 		return false;
 
 	image img(R);
-	for (std::string & input : img) {
-		img.push_back(input);
+	for (int r = 0; r < R; ++r){
+		std::string line;
+		std::cin >> line;
+		img[r] = line;
 	}
 
 	SheepFinder sf(img,R,C);
