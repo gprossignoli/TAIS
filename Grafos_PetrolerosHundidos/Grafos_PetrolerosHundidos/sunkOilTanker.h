@@ -20,13 +20,13 @@ private:
 	const std::vector<std::pair<int, int>> dirs = { { 1,0 },{ 0,1 },{ -1,0 },{ 0,-1 }, {-1,-1}, {-1,1},{1,-1},{1,1} };
 
 	int checkPos(Map const& M,int r, int c,ConjuntosDisjuntos & map) {
-		const int src = r * R + c;
+		const int src = r * C + c;
 
 		for (auto d : dirs) {	
 			const int nr = r + d.first;
 			const int nc = c + d.second;
 			if (validPos(nr, nc) && M[nr][nc] == '#') {
-				const int dst = nr * R + nc;
+				const int dst = nr * C + nc;
 				map.unir(src, dst);
 			}
 		}
