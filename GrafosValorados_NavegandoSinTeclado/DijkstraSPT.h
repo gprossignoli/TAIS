@@ -7,7 +7,7 @@
 #include "GrafoDirigidoValorado.h"
 #include "IndexPQ.h"
 
-typename int POSITIVE_INFINITE = INT_MAX;
+const int POSITIVE_INFINITE = 1000000000;
 
 class DijkstraSP {
 private:
