@@ -8,13 +8,13 @@
 #include <vector>
 
 
-// función que resuelve el problema
-int resolver(std::vector<bool> const& hose, std::vector<int> const& holes,const int patchLength) {
+//coste lineal sobre el numero de agujeros
+int resolver(std::vector<int> const& holes,const int patchLength) {
 	int pos = 0;
 	int patches = 0;
 	int h = 0;
-	while (pos < hose.size()) {
-		if (hose[pos]) {
+	while (pos <= holes.back()) {
+		if (pos == holes[h]) {
 			patches++;
 			pos += patchLength+1;
 		}
@@ -43,14 +43,7 @@ bool resuelveCaso() {
 		holes[i]--;
 	}
 
-	std::vector<bool> hose(holes.back()+1,false);
-	int h = 0;
-	for (int i = 0; i < nHoles; ++i) {
-		hose[holes[h]] = true;
-		h++;
-	}
-
-	int necessaryPatches = resolver(hose,holes,patchLength);
+	int necessaryPatches = resolver(holes,patchLength);
 	
 	std::cout << necessaryPatches << '\n';
 
