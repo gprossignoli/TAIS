@@ -29,7 +29,7 @@ int resolver(std::vector<film> & films,const int nFilms) {
 
 	while (f < nFilms) {
 		int tmp = f + 1;
-		while (tmp < nFilms && films[f].start <= films[tmp].end) {
+		while (tmp < nFilms && films[f].start < films[tmp].end + 10) {
 			tmp++;
 			filmsReproducedAtSameTime++;
 		}
