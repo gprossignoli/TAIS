@@ -17,18 +17,23 @@ typedef struct {
 bool getRodIsPossible(std::vector<tRod> const& rods,const int L) {
 	Matriz<int> m(rods.size(), L + 1,0);
 
-	for (int r = 0; r < m.numfils(); ++r) {
-		m.at(r, rods[r].lenght) = 1;
-		for (int i = r + 1; i < m.numfils(); ++i)
-			m.at(i, rods[r].lenght) = 1;
+	//coste = N^2, siendo N el numero de varillas
+	for (int i = 0; i < rods.size(); ++i) {
+		int lenght = 0;
+		for (int r = i; r >= 0; --r) {
+			lenght += rods[r].lenght;
+			if (lenght <= L)
+				m[i][lenght] = 1;
+		}
 	}
-
-	int fil = 0;
+	
 	bool possible = false;
-	while (fil < m.numfils() && !possible)
-	{
-		possible = m.at(fil, L);
-		++fil;
+	int i = 0;
+	//coste = N, siendo N el numero de varillas
+	while (i < m.numfils() && !possible) {
+		if (m[i][L] == 1)
+			possible = true;
+		++i;
 	}
 
 	return possible;
@@ -47,7 +52,7 @@ bool resuelveCaso() {
 		std::cin >> rods[i].lenght >> rods[i].cost;
 	}
 
-	bool a = getRodIsPossible(rods, L);
+	std::cout << getRodIsPossible(rods, L) << " ";
 
 	return true;
 
