@@ -121,9 +121,6 @@
     <None Include="prob-60.pdf" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matriz.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="datos.txt" />
     <Text Include="output.txt" />
   </ItemGroup>

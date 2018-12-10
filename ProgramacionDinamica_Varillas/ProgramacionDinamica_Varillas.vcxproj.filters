@@ -25,11 +25,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matriz.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="datos.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>

@@ -6,14 +6,18 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
-#include "Matriz.h"
+#include <algorithm>
 
 typedef struct {
 	int lenght;
 	int cost;
 }tRod;
 
+
+
 /*
+PARTE 1:
+
 	posible(0,l) = false, l > 0
 	posible(i,0) = true, i >= 0	
 	posible(i,l) = { posible(i-1, l) si l[i] > l		 
@@ -36,7 +40,75 @@ bool isPossible(std::vector<tRod> const& rods, int L) {
 	return m[rods.size()-1][L];
 }
 
+/*
+PARTE 2:
 
+	posible(0,l) = 0, l > 0
+	posible(i,0) = 1, i >= 0
+	posible(i,l) = { posible(i-1, l) si l[i] > l
+					 posible(i-1,l-l[i]) + posible(i-1,l) }
+*/
+
+
+int countPossibles(std::vector<tRod> const& rods, int L) {
+	std::vector<std::vector<int>> m(rods.size(), std::vector<int>(L + 1, 0));
+	m[0][0] = 1;
+	for (int i = 1; i < rods.size(); ++i) {
+		m[i][0] = 1;
+		for (int l = 1; l <= L; ++l) {
+			if (rods[i].lenght <= l) m[i][l] = (m[i - 1][l - rods[i].lenght] + m[i - 1][l]);
+			else m[i][l] = m[i - 1][l];
+		}
+	}
+
+	return m[rods.size() - 1][L];
+}
+
+/*
+PARTE 3:
+
+	posible(0,l) = 0, l > 0 <-- ??
+	posible(i,0) = 0, i >= 0
+	posible(i,l) = { posible(i-1, l) si l[i] > l
+					 min(posible(i-1,l-l[i]) + 1,posible(i-1,l)) }
+*/
+
+int minimumRodsNecessary(std::vector<tRod> const& rods, int L) {
+	std::vector<std::vector<int>> m(rods.size(), std::vector<int>(L + 1, rods.size()));
+	m[0][0] = 0;
+	for (int i = 1; i < rods.size(); ++i) {
+		m[i][0] = 0;
+		for (int l = 1; l <= L; ++l) {
+			if (rods[i].lenght <= l) m[i][l] = std::min(m[i - 1][l - rods[i].lenght] + 1, m[i - 1][l]);
+			else m[i][l] = m[i - 1][l];
+		}
+	}
+
+	return m[rods.size() - 1][L];
+}
+
+/*
+PARTE 4:
+
+	posible(0,l) = inf, l > 0
+	posible(i,0) = 0, i >= 0
+	posible(i,l) = { posible(i-1, l) si l[i] > l
+					 min(posible(i-1,l-l[i]) + i.coste,posible(i-1,l)) }
+*/
+
+int minimumCostNecessary(std::vector<tRod> const& rods, int L,const int infinite) {
+	std::vector<std::vector<int>> m(rods.size(), std::vector<int>(L + 1, infinite));
+	m[0][0] = 0;
+	for (int i = 1; i < rods.size(); ++i) {
+		m[i][0] = 0;
+		for (int l = 1; l <= L; ++l) {
+			if (rods[i].lenght <= l) m[i][l] = std::min(m[i - 1][l - rods[i].lenght] + rods[i].cost, m[i - 1][l]);
+			else m[i][l] = m[i - 1][l];
+		}
+	}
+
+	return m[rods.size() - 1][L];
+}
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 bool resuelveCaso() {
@@ -51,10 +123,12 @@ bool resuelveCaso() {
 		std::cin >> rods[i].lenght >> rods[i].cost;
 	}
 
-	if (isPossible(rods, L))
-		std::cout << "SI ";
+	if (isPossible(rods, L)) {
+		std::cout << "SI " << countPossibles(rods, L) << " " 
+			<< minimumRodsNecessary(rods,L) << " " << minimumCostNecessary(rods,L,1000000000) << '\n';
+	}
 	else
-		std::cout << "NO ";
+		std::cout << "NO \n";
 
 	return true;
 
