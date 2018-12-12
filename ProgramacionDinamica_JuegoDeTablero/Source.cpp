@@ -10,6 +10,7 @@
 #include "Matriz.h"
 
 /*
+-Ecuaciones recursivas:
 	game(0,col) = 0, col >= 0
 	game(row,0) = 0, i >= 0
 	game(row,col) = { max( game(row-1,col - 1), 
@@ -17,6 +18,14 @@
 						   game(row-1,col+1) )
 						   + game(row,col) if row < Matriz.rows() && col <= Matriz.columns()}				
 
+-Explicacion:
+	Dada una matriz M de dimension N por entrada construyo una matriz Game de dimension (N + 1)x(N+2),
+	con la fila 0 y las columnas 0 y N + 1 con valor 0.
+	Mediante las ecuaciones recursivas relleno Game con los valores de M, al final en Game[N][] tendremos
+	las sumas de los recorridos, y la posicion corresponde con la posicion de inicio del juego.
+
+-Coste: 
+	El coste será N^2 siendo N la dimension de la matriz Game.
 */
 
 
