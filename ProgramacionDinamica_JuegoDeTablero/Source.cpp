@@ -7,65 +7,62 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "Matriz.h"
+
 
 /*
--Ecuaciones recursivas:
-	game(0,col) = 0, col >= 0
-	game(row,0) = 0, i >= 0
-	game(row,col) = { max( game(row-1,col - 1), 
-						   game(row-1,col), 
-						   game(row-1,col+1) )
-						   + game(row,col) if row < Matriz.rows() && col <= Matriz.columns()}				
+	siendo tablero la matriz que contiene la informacion
+	ecuaciones recursivas: sumar(i,j) { tablero(i,j) + max(tablero(i-1,j-1),tablero(i-1,j),tablero(i-1,j+1)) para 1 <= i <= N 
+																												  1 <= j <= N
+*/	
+const std::pair<int,int> resolve(const int N) {
+	std::vector<std::vector<int>>M(N);
 
--Explicacion:
-	Dada una matriz M de dimension N por entrada construyo una matriz Game de dimension (N + 1)x(N+2),
-	con la fila 0 y las columnas 0 y N + 1 con valor 0.
-	Mediante las ecuaciones recursivas relleno Game con los valores de M, al final en Game[N][] tendremos
-	las sumas de los recorridos, y la posicion corresponde con la posicion de inicio del juego.
-
--Coste: 
-	El coste será N^2 siendo N la dimension de la matriz Game.
-*/
-
-
-std::pair<int,int> resolver(Matriz<int> const& m) {
-	Matriz<int> game(m.numfils() + 1, m.numcols() + 2, 0);
-	
-	for (int row = 1; row < game.numfils(); ++row) {
-		for (int col = 1; col < game.numcols() -1; ++col) {
-			game[row][col] = std::max(std::max(game[row - 1][col - 1], game[row - 1][col]),
-							 game[row - 1][col + 1]) + m[row-1][col-1];
+	for (int i = 0; i < N; ++i) {
+		M[i].push_back(0);
+		for(int j = 1; j <= N; ++j){
+			int n;
+			std::cin >> n;
+			M[i].push_back(n);
 		}
+		M[i].push_back(0);
 	}
-	int sol = 0;
-	int pos = 0;
-	for (int i = 1; i < game.numcols() - 1; ++i) {
-		if (sol < game[game.numfils() - 1][i]) {
-			sol = game[game.numfils() - 1][i];
-			pos = i;
+
+	for (int i = 1; i < N; ++i) {
+		for (int j = 1; j <= N; ++j) {
+			M[i][j] += std::max(std::max(M[i - 1][j - 1], M[i - 1][j]), M[i - 1][j + 1]);
 		}
 	}
 
-	return { sol,pos };
+	std::pair<int, int> sol = { 0, 0};
+	int j = 1;
+	for (j; j <= N; ++j) {
+		if (sol.first < M[N - 1][j]) {
+			sol.first = M[N - 1][j];
+			sol.second = j;
+		}
+	}
+
+	return sol;
 }
 
-
+// Resuelve un caso de prueba, leyendo de la entrada la
+// configuración, y escribiendo la respuesta
 bool resuelveCaso() {
-	int M;
-	std::cin >> M;
+	int N;
+	std::cin >> N;
 	if (!std::cin)
 		return false;
 
-	Matriz<int> m(M, M, 0);
-	for(int i = 0; i < M; ++i){
-		for (int j = 0; j < M; ++j) {
-			std::cin >> m[i][j];
-		}	
+	if (N == 0) {
+		std::cout << "0 0\n";
+		return true;
 	}
+	
 
-	std::pair<int, int> sol = resolver(m);
+	const std::pair<int, int> sol = resolve(N);
 	std::cout << sol.first << " " << sol.second << '\n';
+	
+
 
 	return true;
 
